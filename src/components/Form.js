@@ -1,36 +1,64 @@
 import { useState } from "react";
+
 function Form(props) {
-  const [inputVal, setInputVal] = useState("abc");
-  const [passVal, setPasVal] = useState("");
-  console.log("Re-rendering with -- ", inputVal, passVal);
+  const [formState, setFormState] = useState({
+    userName: "pariks",
+    age: "28",
+    password: "pass",
+    month: "Jan",
+  });
+
+  const handleChange = (event) => {
+    const targetVal = event.target.value;
+    const targetName = event.target.name;
+    setFormState({
+      ...formState,
+      [targetName]: targetVal,
+    });
+  };
+
+  console.log("This is formstate", formState);
   return (
     <div>
       <label> Enter user name: </label>
       <input
         type="text"
-        value={inputVal}
-        onChange={(event) => setInputVal(event.target.value)}
+        value={formState.userName}
+        name="userName"
+        onChange={handleChange}
+      />
+
+      <label> Enter age: </label>
+      <input
+        type="text"
+        name="age"
+        value={formState.age}
+        onChange={handleChange}
       />
 
       <label> Enter password: </label>
       <input
         type="password"
-        value={passVal}
-        onChange={(event) => setPasVal(event.target.value)}
+        name="password"
+        value={formState.password}
+        onChange={handleChange}
       />
-      <button
-        onClick={() => {
-          if (passVal.length <= 8) {
-            alert("Password should be 8 char long");
-          } else {
-            alert("Success");
-            setPasVal("");
-            setInputVal("");
-          }
+
+      <label> Select month: </label>
+      <select
+        value={formState.month}
+        onChange={(event) => {
+          setFormState({
+            ...formState,
+            month: event.target.value,
+          });
         }}
       >
-        Login
-      </button>
+        <option value="Jan">Jan</option>
+        <option value="Feb">Feb</option>
+        <option value="March">March</option>
+      </select>
+      <button onClick={() => {}}>Login</button>
     </div>
   );
 }
