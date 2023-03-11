@@ -2,6 +2,7 @@ import Car from "./components/Car";
 import Form from "./components/Form";
 import "./App.css";
 import { useState } from "react";
+import Todos from "./components/Todos";
 
 const fruits = ["Apple", "Banana", "Carrot", "Grapes"];
 // React fragment(<> </>) allows you to wrap JSX in one element
@@ -61,7 +62,8 @@ function App() {
         </button>
       ))} */}
 
-      <Form/>
+      {/* <Form /> */}
+      <Todos />
     </>
   );
 }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useReducer } from "react";
 
 function Form(props) {
   const [formState, setFormState] = useState({
@@ -7,6 +7,7 @@ function Form(props) {
     password: "pass",
     month: "Jan",
   });
+
 
   const handleChange = (event) => {
     const targetVal = event.target.value;
