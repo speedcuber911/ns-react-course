@@ -25,15 +25,7 @@ function ToDoItem(props) {
         <input
           type="checkbox"
           checked={props.status}
-          onChange={() => {
-            // handleChange(task.id);
-            props.dispatcher({
-              // Dispatcher, dispactches action and calls the reducer with these actions
-              type: "DONE",
-              id: props.id,
-              lastUpdated: getFormattedDate(),
-            });
-          }}
+          onChange={props.marksAsDone}
         />
         <span style={{ textDecoration: props.status ? "line-through" : "" }}>
           {props.title}
@@ -46,12 +38,7 @@ function ToDoItem(props) {
         )}
       </label>
       <div
-        onClick={() => {
-          props.dispatcher({
-            type: "REMOVE_ITEM",
-            id: props.id,
-          });
-        }}
+        onClick={props.removeItem}
         style={{
           display: "inline-block",
           color: "red",
@@ -72,6 +59,7 @@ function Todos(props) {
     // Always returns a new state. Don't mutate the state
     console.log("Reducer called");
     // Whatever the reducer returns, becomes the new state
+    if (action.type === "ERASE") return [];
     if (action.type === "DONE") {
       return state.map((task) => {
         if (task.id === action.id) {
@@ -130,12 +118,24 @@ function Todos(props) {
         .map((task) => (
           <ToDoItem
             status={task.status}
-            id={task.id}
             key={task.id}
             title={task.title}
-            dispatcher={dispatcher}
             createdAt={task.createdAt}
             lastUpdated={task.lastUpdated}
+            marksAsDone={() => {
+              dispatcher({
+                // Dispatcher, dispactches action and calls the reducer with these actions
+                type: "DONE",
+                id: task.id,
+                lastUpdated: getFormattedDate(),
+              });
+            }}
+            removeItem={() => {
+              dispatcher({
+                type: "REMOVE",
+                id: task.id,
+              });
+            }}
           />
         ))}
       <input
