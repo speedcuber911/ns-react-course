@@ -64,7 +64,7 @@ function App() {
       ))} */}
       {/* <Form /> */}
       {/* <Todos /> */}
-      <Dictionary/>
+      <Dictionary/> 
     </>
   );
 }

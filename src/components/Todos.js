@@ -10,7 +10,6 @@ import { useState, useReducer } from "react";
   5. Date and time of when the task is added & when the task was last editted
   6. Styling
 
-
 */
 
 function getFormattedDate() {
