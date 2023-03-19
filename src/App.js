@@ -1,5 +1,6 @@
 import Car from "./components/Car";
 import Form from "./components/Form";
+import List from "./components/OptimisedList"
 import "./App.css";
 import { useState } from "react";
 import Todos from "./components/Todos";
@@ -64,7 +65,8 @@ function App() {
       ))} */}
       {/* <Form /> */}
       {/* <Todos /> */}
-      <Dictionary/> 
+      {/* <Dictionary/>  */}
+      <List/>
     </>
   );
 }

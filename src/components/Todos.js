@@ -1,4 +1,4 @@
-import { useState, useReducer } from "react";
+import { useState, useReducer, useCallback } from "react";
 
 /*
 
@@ -17,14 +17,52 @@ function getFormattedDate() {
   return t.toDateString() + "|" + t.toTimeString().split(" ")[0];
 }
 
+const reducerFn = (state, action) => {
+  // Always returns a new state. Don't mutate the state
+  console.log("Reducer called");
+  // Whatever the reducer returns, becomes the new state
+  if (action.type === "ERASE") return [];
+  if (action.type === "DONE") {
+    return state.map((task) => {
+      if (task.id === action.id) {
+        return {
+          ...task,
+          status: !task.status,
+          lastUpdated: action.lastUpdated,
+        };
+      } else return task;
+    });
+  }
+  if (action.type === "ADD_ITEM") {
+    if (state.find((el) => el.id === action.id)) {
+      return state;
+    } else {
+      return [
+        ...state,
+        {
+          title: action.title,
+          id: action.id,
+          status: false,
+          createdAt: action.createdAt,
+        },
+      ];
+    }
+  }
+  if (action.type === "REMOVE_ITEM") {
+    return state.filter((el) => action.id !== el.id);
+  }
+  return state;
+};
+
 function ToDoItem(props) {
+  console.log("Rendeing toDoItem");
   return (
     <div>
       <label>
         <input
           type="checkbox"
           checked={props.status}
-          onChange={props.marksAsDone}
+          onChange={() => props.marksAsDone(props.taskId)}
         />
         <span style={{ textDecoration: props.status ? "line-through" : "" }}>
           {props.title}
@@ -54,47 +92,27 @@ function ToDoItem(props) {
 function Todos(props) {
   // Pure function. When called with same input, always same output
   // Don't cause side-effects
-  const reducer = (state, action) => {
-    // Always returns a new state. Don't mutate the state
-    console.log("Reducer called");
-    // Whatever the reducer returns, becomes the new state
-    if (action.type === "ERASE") return [];
-    if (action.type === "DONE") {
-      return state.map((task) => {
-        if (task.id === action.id) {
-          return {
-            ...task,
-            status: !task.status,
-            lastUpdated: action.lastUpdated,
-          };
-        } else return task;
-      });
-    }
-    if (action.type === "ADD_ITEM") {
-      if (state.find((el) => el.id === action.id)) {
-        return state;
-      } else {
-        return [
-          ...state,
-          {
-            title: action.title,
-            id: action.id,
-            status: false,
-            createdAt: action.createdAt,
-          },
-        ];
-      }
-    }
-    if (action.type === "REMOVE_ITEM") {
-      return state.filter((el) => action.id !== el.id);
-    }
-    return state;
-  };
 
   //   const [taskStatus, setTask] = useState(tasks);
-  const [taskStatus2, dispatcher] = useReducer(reducer, []);
+  const [taskStatus2, dispatcher] = useReducer(reducerFn, []);
   const [taskValue, setTaskValue] = useState("");
   const [filterState, setFilterState] = useState("All");
+
+  const markAsDoneCallback = useCallback((taskId) => {
+    dispatcher({
+      // Dispatcher, dispactches action and calls the reducer with these actions
+      type: "DONE",
+      id: taskId,
+      lastUpdated: getFormattedDate(),
+    });
+  });
+
+  const removeTaskItem = (taskId) => () => {
+    dispatcher({
+      type: "REMOVE",
+      id: taskId,
+    });
+  };
 
   return (
     <>
@@ -118,23 +136,12 @@ function Todos(props) {
           <ToDoItem
             status={task.status}
             key={task.id}
+            taskId={task.id}
             title={task.title}
             createdAt={task.createdAt}
             lastUpdated={task.lastUpdated}
-            marksAsDone={() => {
-              dispatcher({
-                // Dispatcher, dispactches action and calls the reducer with these actions
-                type: "DONE",
-                id: task.id,
-                lastUpdated: getFormattedDate(),
-              });
-            }}
-            removeItem={() => {
-              dispatcher({
-                type: "REMOVE",
-                id: task.id,
-              });
-            }}
+            marksAsDone={markAsDoneCallback}
+            // removeItem={removeTaskItem(task.id)}
           />
         ))}
       <input
