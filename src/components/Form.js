@@ -21,6 +21,7 @@ function Form(props) {
   console.log("This is formstate", formState);
   return (
     <div>
+      <h1>{props.heading}</h1>
       <label> Enter user name: </label>
       <input
         type="text"

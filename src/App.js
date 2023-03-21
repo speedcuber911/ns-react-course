@@ -1,6 +1,8 @@
+import MainAppPage from "./components/mainPage/MainAppPage";
 import Car from "./components/Car";
 import Form from "./components/Form";
-import List from "./components/OptimisedList"
+import TodosWithCalc from "./components/todosWithCalc";
+import List from "./components/OptimisedList";
 import "./App.css";
 import { useState } from "react";
 import Todos from "./components/Todos";
@@ -63,10 +65,16 @@ function App() {
           {car.name}
         </button>
       ))} */}
-      {/* <Form /> */}
-      {/* <Todos /> */}
-      {/* <Dictionary/>  */}
-      <List/>
+      {/* <Form heading="Form" />
+      <hr />
+      <Todos heading="Todos" />
+      <hr />
+      <Dictionary heading="Dictionary" />
+      <hr />
+      <List heading="List" />
+      <hr /> */}
+      {/* <TodosWithCalc heading="TodosWithCalc" /> */}
+      <MainAppPage />
     </>
   );
 }

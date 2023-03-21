@@ -8,7 +8,7 @@ function Definition(props) {
 // let isCalled = false;
 
 // Performing side-effects
-function Dictionary() {
+function Dictionary(props) {
   const [word, setWord] = useState("");
   const [meanings, setMeanings] = useState([]);
   const [computedVal, setComputedVal] = useState();
@@ -43,7 +43,7 @@ function Dictionary() {
 
   return (
     <div>
-      <h1>Dictionary</h1>
+      <h1>{props.heading}</h1>
       <input
         type="text"
         onChange={(event) => setWord(event.target.value)}

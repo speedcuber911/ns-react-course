@@ -17,7 +17,7 @@ function List(props) {
   );
 }
 
-function ListWrapper() {
+function ListWrapper(props) {
   const [myState, setMyState] = useState(false);
   const [dependentState, setDepState] = useState(false);
 
@@ -33,6 +33,7 @@ function ListWrapper() {
 
   return (
     <>
+    <h1>{props.heading}</h1>
       <button onClick={() => setMyState(!myState)}>
         Change state of ListWrapper
       </button>
