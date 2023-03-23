@@ -1,7 +1,8 @@
-import MainAppPage from "./components/mainPage/MainAppPage";
+import { MainAppPage } from "./components/mainPage/MainAppPage";
 import Car from "./components/Car";
 import Form from "./components/Form";
 import TodosWithCalc from "./components/todosWithCalc";
+import InputTransformer from "./components/InputTransformer";
 import List from "./components/OptimisedList";
 import "./App.css";
 import { useState } from "react";
@@ -74,7 +75,8 @@ function App() {
       <List heading="List" />
       <hr /> */}
       {/* <TodosWithCalc heading="TodosWithCalc" /> */}
-      <MainAppPage />
+      {/* <MainAppPage /> */}
+      <InputTransformer />
     </>
   );
 }

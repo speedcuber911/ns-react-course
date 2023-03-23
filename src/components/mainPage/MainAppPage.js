@@ -1,20 +1,42 @@
-import { useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import MainComponent from "./MainContent";
 import Navbar from "./Navbar";
+/*
+  React context
+*/
 
-function MainAppPage() {
-  const [userName, setUserName] = useState("Yash");
+export const UserContext = createContext();
+export const ThemeContext = createContext();
+
+export function MainAppPage() {
+  const [user, setUser] = useState({
+    userName: "Yash",
+    password: "anbckodcmjoas",
+  });
+
+  const [theme, setTheme] = useState("dark");
   useEffect(() => {
     setTimeout(() => {
-      setUserName("Parikshit");
-    }, 2000)
-  }, [userName]);
+      setUser({
+        ...user,
+        userName: "Parikshit",
+      });
+    }, 2000);
+  }, [user]);
+
   return (
-    <div>
-      <Navbar />
-      <MainComponent userName={userName} />
-    </div>
+    <ThemeContext.Provider value={theme}>
+      <UserContext.Provider value={user}>
+        <div>
+          <Navbar />
+          <MainComponent />
+          <button
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          >
+            {theme}            
+          </button>
+        </div>
+      </UserContext.Provider>
+    </ThemeContext.Provider>
   );
 }
-
-export default MainAppPage;

@@ -1,5 +1,27 @@
+import { useContext } from "react";
+import { UserContext, ThemeContext } from "./MainAppPage";
+
 function MessageBanner(props) {
-  return <input type="text" value={props.message}/>
+  const user = useContext(UserContext);
+  const theme = useContext(ThemeContext);
+  console.log("From context", user, theme);
+  return (
+        <div>
+          <label>UserName: </label>
+          <input
+            type="text"
+            value={user.userName}
+            style={{ background: theme === "dark" ? "blue" : "yellow" }}
+          />
+          <br />
+          <label>Password: </label>
+          <input
+            type="password"
+            value={user.password}
+            style={{ background: theme === "dark" ? "blue" : "yellow" }}
+          />
+        </div>
+  );
 }
 
 export default MessageBanner;
