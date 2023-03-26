@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useReducer, useState } from "react";
 
 function Input(props) {
+  console.log("Value is", props.value);
   return (
     <>
-      <label>Input</label>
+      <label>Input: </label>
       <input
         type="text"
         value={props.value}
@@ -15,7 +16,7 @@ function Input(props) {
 function TransformedInput(props) {
   return (
     <>
-      <label>TransformedInput</label>
+      <label>{props.label}: </label>
       <input type="text" value={props.transformer(props.toTransform)}></input>
     </>
   );
@@ -29,18 +30,36 @@ function tranformToLower(stri) {
   return stri.toLowerCase();
 }
 
+function inputStateReducer(state, action) {
+  if (action.type === "UPDATE_INPUT") return action.value;
+  return state;
+}
+
 function InputTransformer() {
-  const [preTransformed, setPreTransformed] = useState("");
+  useReducer();
+  const [inputState, dispatch] = useReducer(inputStateReducer, "");
   return (
     <>
-      <Input value={preTransformed} onChange={setPreTransformed} />
-      <TransformedInput
-        toTransform={preTransformed}
-        transformer={tranformToUpper}
+      <Input
+        value={inputState}
+        onChange={(value) => {
+          dispatch({
+            type: "UPDATE_INPUT",
+            value,
+          });
+        }}
       />
+      <br />
       <TransformedInput
-        toTransform={preTransformed}
+        toTransform={inputState}
+        transformer={tranformToUpper}
+        label="Captialise"
+      />
+      <br />
+      <TransformedInput
+        toTransform={inputState}
         transformer={tranformToLower}
+        label="SmallCase"
       />
     </>
   );
