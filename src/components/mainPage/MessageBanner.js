@@ -6,21 +6,21 @@ function MessageBanner(props) {
   const theme = useContext(ThemeContext);
   console.log("From context", user, theme);
   return (
-        <div>
-          <label>UserName: </label>
-          <input
-            type="text"
-            value={user.userName}
-            style={{ background: theme === "dark" ? "blue" : "yellow" }}
-          />
-          <br />
-          <label>Password: </label>
-          <input
-            type="password"
-            value={user.password}
-            style={{ background: theme === "dark" ? "blue" : "yellow" }}
-          />
-        </div>
+    <div>
+      <label>UserName: </label>
+      <input
+        type="text"
+        value={user.userName}
+        style={{ background: theme === "light" ? "blue" : "yellow" }}
+      />
+      <br />
+      <label>Password: </label>
+      <input
+        type="password"
+        value={user.password}
+        style={{ background: theme === "light" ? "blue" : "yellow" }}
+      />
+    </div>
   );
 }
 
