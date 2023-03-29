@@ -28,8 +28,8 @@ export function MainAppPage() {
     <ThemeContext.Provider value={theme}>
       <UserContext.Provider value={user}>
         <div>
-          <Navbar />
-          <MainComponent />
+          <Navbar/>
+          <MainComponent/>
           <button
             onClick={() => setTheme(theme == "dark" ? "light" : "dark")}
           >

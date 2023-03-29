@@ -11,14 +11,14 @@ function MessageBanner(props) {
           <input
             type="text"
             value={user.userName}
-            style={{ background: theme === "dark" ? "blue" : "yellow" }}
+            style={{ background: theme === "light" ? "blue" : "yellow" }}
           />
           <br />
           <label>Password: </label>
           <input
             type="password"
             value={user.password}
-            style={{ background: theme === "dark" ? "blue" : "yellow" }}
+            style={{ background: theme === "light" ? "blue" : "yellow" }}
           />
         </div>
   );
