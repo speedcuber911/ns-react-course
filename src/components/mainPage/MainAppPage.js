@@ -31,7 +31,7 @@ export function MainAppPage() {
           <Navbar />
           <MainComponent />
           <button
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            onClick={() => setTheme(theme == "dark" ? "light" : "dark")}
           >
             {theme}            
           </button>
