@@ -10,7 +10,7 @@ export const ThemeContext = createContext();
 
 export function MainAppPage() {
   const [user, setUser] = useState({
-    userName: "Yash",
+    userName: "Parikshit",
     password: "anbckodcmjoas",
   });
 
@@ -19,7 +19,7 @@ export function MainAppPage() {
     setTimeout(() => {
       setUser({
         ...user,
-        userName: "Parikshit",
+        userName: "Yash",
       });
     }, 2000);
   }, [user]);
