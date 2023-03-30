@@ -10,6 +10,7 @@ import Todos from "./components/Todos";
 import Dictionary from "./components/dictionary";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Input from "./components/Input";
+import InputWithRef  from "./components/inputWithRef";
 
 const fruits = ["Apple", "Banana", "Carrot", "Grapes"];
 // React fragment(<> </>) allows you to wrap JSX in one element
@@ -79,7 +80,8 @@ function App() {
       {/* <TodosWithCalc heading="TodosWithCalc" /> */}
       {/* <MainAppPage /> */}
       {/* <InputTransformer /> */}
-      <Input/>
+      {/* <Input/> */}
+      <InputWithRef />
     </>
   );
 }

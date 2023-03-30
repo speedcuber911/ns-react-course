@@ -16,6 +16,7 @@ function InputComponent() {
   const [inputText, setInput] = useState("");
   const [inputValidationErrors, setInputValidationErrors] = useState([]);
   const [inputSuccess, setInputSuccess] = useState(false);
+  
   const validate = () => {
     const errors = [];
     if (inputText.length === 0) {
@@ -66,7 +67,7 @@ function InputComponent() {
                 valid={inputSuccess}
                 invalid={inputValidationErrors.length ? true : false}
                 value={inputText}
-                onChange={(e) => setInput(e.target.value)}
+                onChange={(e) => setInput(e.target.value)}                
               />
               {inputValidationErrors.map((error) => (
                 <FormFeedback key={error}>{error}</FormFeedback>
