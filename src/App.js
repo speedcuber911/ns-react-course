@@ -11,6 +11,8 @@ import Dictionary from "./components/dictionary";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Input from "./components/Input";
 import InputWithRef  from "./components/inputWithRef";
+import Navigation from "./components/Navigator"
+import Presenter from "./components/Presenter"
 
 const fruits = ["Apple", "Banana", "Carrot", "Grapes"];
 // React fragment(<> </>) allows you to wrap JSX in one element
@@ -35,53 +37,41 @@ function TickTackToeBox(props) {
 // State - internal to the component. Whenever there is state changes, the component re-renders
 // Props - Which are passed to the component from the parent
 function App() {
-  const [carName, setCarName] = useState(cars[0].name); // Returns an array of 2 items. First item is the initial state value, second item is a function which is state setter
-  // console.log("I am rendering again");
+  const [componentName, setComponentName] = useState(null);
+  const handleClick = (componentToLoad) => {    
+    setComponentName(componentToLoad);
+  }
+  const componentNameToComponent = [
+    {
+      componentName: "Todos", 
+      component: <Todos/>
+    },
+    {
+      componentName: "Dictionary", 
+      component: <Dictionary/>
+    },
+    {
+      componentName: "Form", 
+      component: <Form/>
+    },
+    {
+      componentName: "List", 
+      component: <List/>
+    },
+  ];
+  const getComponentFromComponentName = (componentName) => componentName? (componentNameToComponent.find(el => (el.componentName === componentName )).component): <></>
+  
   return (
     <>
-      {/* <p>Hi</p>
-      <p>Hello</p>
-      <input type="text" />
-      <p className="">Something inside this</p>
-      {cars
-        .filter((car) => car.carInfo.weight >= 1500)
-        .map(({ name, brand, carInfo }) => (
-          <Car name={name} brand={brand} info={carInfo} key={name} />
-        ))}
-      <button
-        onClick={(event) => {
-          console.log("Button was clicked", event);
-        }}
-      >
-        Click Me!
-      </button>
-      <TickTackToeBox isCross={true} />
-      <TickTackToeBox isCross={false} /> */}
-      {/* <h1> My favourite car is: {carName}</h1>
-      {cars.map((car) => (
-        <button
-          key={car.name}
-          onClick={() => {
-            console.log("Setting state to", car.name);
-            setCarName(car.name);
-          }}
-        >
-          {car.name}
-        </button>
-      ))} */}
-      {/* <Form heading="Form" />
-      <hr />
-      <Todos heading="Todos" />
-      <hr />
-      <Dictionary heading="Dictionary" />
-      <hr />
-      <List heading="List" />
-      <hr /> */}
-      {/* <TodosWithCalc heading="TodosWithCalc" /> */}
-      {/* <MainAppPage /> */}
-      {/* <InputTransformer /> */}
-      {/* <Input/> */}
-      <InputWithRef />
+      <Navigation handleClick={handleClick} navigationItems={componentNameToComponent}/>
+      <Presenter name={componentName}>
+        {getComponentFromComponentName(componentName)}
+      </Presenter>          
+      {/*<TodosWithCalc heading="TodosWithCalc" />
+      <MainAppPage />
+      <InputTransformer />
+      <Input/>
+      <InputWithRef /> */}
     </>
   );
 }
