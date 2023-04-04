@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Collapse,
   Navbar,
@@ -12,16 +12,21 @@ import {
   DropdownMenu,
   DropdownItem,
   NavbarText,
-} from 'reactstrap';
+} from "reactstrap";
 
-function CustomNavItem(props){
-    return(
-        <NavItem>
-            <NavLink onClick={() => props.handleClick(props.navHeading)} style={{
-          cursor:"pointer"
-        }}>{props.navHeading}</NavLink>
-      </NavItem>
-    );
+function CustomNavItem(props) {
+  return (
+    <NavItem>
+      <NavLink
+        onClick={() => props.handleClick(props.navHeading)}
+        style={{
+          cursor: "pointer",
+        }}
+      >
+        {props.navHeading}
+      </NavLink>
+    </NavItem>
+  );
 }
 
 function Navigation(props) {
@@ -30,13 +35,17 @@ function Navigation(props) {
 
   return (
     <div>
-      <Navbar >
+      <Navbar>
         <NavbarBrand href="/">MultiScreen</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="me-auto" navbar>
-            {props.navigationItems.map(navItem => (<CustomNavItem navHeading={navItem.componentName} 
-            handleClick={props.handleClick}/>))}
+            {props.navigationItems.map((navItem) => (
+              <CustomNavItem
+                navHeading={navItem.componentName}
+                handleClick={props.handleClick}
+              />
+            ))}
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
                 MiniApps

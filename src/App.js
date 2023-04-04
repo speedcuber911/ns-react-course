@@ -10,9 +10,9 @@ import Todos from "./components/Todos";
 import Dictionary from "./components/dictionary";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Input from "./components/Input";
-import InputWithRef  from "./components/inputWithRef";
-import Navigation from "./components/Navigator"
-import Presenter from "./components/Presenter"
+import InputWithRef from "./components/inputWithRef";
+import Navigation from "./components/Navigator";
+import Presenter from "./components/Presenter";
 
 const fruits = ["Apple", "Banana", "Carrot", "Grapes"];
 // React fragment(<> </>) allows you to wrap JSX in one element
@@ -38,35 +38,44 @@ function TickTackToeBox(props) {
 // Props - Which are passed to the component from the parent
 function App() {
   const [componentName, setComponentName] = useState(null);
-  const handleClick = (componentToLoad) => {    
+  const handleClick = (componentToLoad) => {
     setComponentName(componentToLoad);
-  }
+  };
   const componentNameToComponent = [
     {
-      componentName: "Todos", 
-      component: <Todos/>
+      componentName: "Todos",
+      component: <Todos />,
     },
     {
-      componentName: "Dictionary", 
-      component: <Dictionary/>
+      componentName: "Dictionary",
+      component: <Dictionary />,
     },
     {
-      componentName: "Form", 
-      component: <Form/>
+      componentName: "Form",
+      component: <Form />,
     },
     {
-      componentName: "List", 
-      component: <List/>
+      componentName: "List",
+      component: <List />,
     },
   ];
-  const getComponentFromComponentName = (componentName) => componentName? (componentNameToComponent.find(el => (el.componentName === componentName )).component): <></>
-  
+  const getComponentFromComponentName = (componentName) =>
+    componentName ? (
+      componentNameToComponent.find((el) => el.componentName === componentName)
+        .component
+    ) : (
+      <></>
+    );
+
   return (
     <>
-      <Navigation handleClick={handleClick} navigationItems={componentNameToComponent}/>
+      <Navigation
+        handleClick={handleClick}
+        navigationItems={componentNameToComponent}
+      />
       <Presenter name={componentName}>
         {getComponentFromComponentName(componentName)}
-      </Presenter>          
+      </Presenter>
       {/*<TodosWithCalc heading="TodosWithCalc" />
       <MainAppPage />
       <InputTransformer />

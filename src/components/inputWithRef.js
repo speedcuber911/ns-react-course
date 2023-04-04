@@ -12,7 +12,6 @@ function InputWithRef() {
     console.log("Height of box is", boxRef.current.clientHeight);
     console.log("Width of box is", boxRef.current.clientWidth);
   }, []);
-
   return (
     <>
       <div

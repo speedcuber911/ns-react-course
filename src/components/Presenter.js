@@ -1,6 +1,6 @@
 import {
     Col, Row, 
-    Card, CardTitle, CardText, Button
+    Card, CardTitle, CardText
   } from "reactstrap"
 
 function Presenter(props){
