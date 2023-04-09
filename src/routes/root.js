@@ -1,24 +1,24 @@
-import { Outlet, Link, useLoaderData } from "react-router-dom";
+import { Outlet, Link, useLoaderData, Form } from "react-router-dom";
+import { getAllContacts } from "../contactInfo";
 
-const waitFor2Seconds = () => new Promise((resolve) => {
-  setTimeout(() => resolve(), 200);
-});
+const waitFor2Seconds = () =>
+  new Promise((resolve) => {
+    setTimeout(() => resolve(), 200);
+  });
 
-export async function loader() {
-  const contacts = [
+export function rootAction() {
+  console.log("Executed");
+  return [
     {
       first: "Dheeraj",
       last: "Parashar",
       id: 1,
     },
-    {
-      first: "Yash",
-      last: "Jain",
-      id: 2,
-    },
   ];
-  await waitFor2Seconds();
-  return contacts;
+}
+
+export async function loader() {
+ return getAllContacts();
 }
 
 export default function Root() {
@@ -40,12 +40,12 @@ export default function Root() {
             <div id="search-spinner" aria-hidden hidden={true} />
             <div className="sr-only" aria-live="polite"></div>
           </form>
-          <form method="post">
+          <Form method="post">
             <button type="submit">New</button>
-          </form>
+          </Form>
         </div>
         <nav>
-          {contacts.length ? (
+          {contacts && contacts.length ? (
             <ul>
               {contacts.map((contact) => (
                 <li key={contact.id}>

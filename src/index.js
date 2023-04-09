@@ -4,9 +4,10 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Root, { loader } from "./routes/root";
+import Root, { loader, rootAction } from "./routes/root";
 import ErrorPage from "./routes/ErrorRoute";
-import Contact from "./routes/Contact";
+import Contact, { contactLoader } from "./routes/Contact";
+import EditContact from "./routes/EditContact";
 
 const router = createBrowserRouter([
   {
@@ -14,10 +15,17 @@ const router = createBrowserRouter([
     element: <Root />,
     errorElement: <ErrorPage />,
     loader,
+    action: rootAction,
     children: [
       {
         path: "contacts/:id",
         element: <Contact />,
+        loader: contactLoader,
+      },
+      {
+        path: "contacts/:id/edit",
+        element: <EditContact />,
+        loader: contactLoader,
       },
     ],
   },

@@ -1,4 +1,9 @@
-import { Form } from "react-router-dom";
+import { Form, useLoaderData } from "react-router-dom";
+import { getContactFromId } from "../contactInfo";
+
+export function contactLoader({ params }) {
+  return getContactFromId(params.id);
+}
 
 export default function Contact() {
   const contact = {
@@ -10,6 +15,8 @@ export default function Contact() {
     favorite: true,
   };
 
+  const contactInfo = useLoaderData();
+  console.log(contactInfo);
   return (
     <div id="contact">
       <div>
@@ -20,7 +27,7 @@ export default function Contact() {
         <h1>
           {contact.first || contact.last ? (
             <>
-              {contact.first} {contact.last}
+              {contactInfo.first} {contactInfo.last}
             </>
           ) : (
             <i>No Name</i>
