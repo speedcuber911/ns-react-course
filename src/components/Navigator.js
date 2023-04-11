@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useLoaderData, Link } from "react-router-dom";
 import {
   Collapse,
   Navbar,
@@ -17,14 +18,7 @@ import {
 function CustomNavItem(props) {
   return (
     <NavItem>
-      <NavLink
-        onClick={() => props.handleClick(props.navHeading)}
-        style={{
-          cursor: "pointer",
-        }}
-      >
-        {props.navHeading}
-      </NavLink>
+      <Link to={props.path}>{props.navHeading}</Link>
     </NavItem>
   );
 }
@@ -32,7 +26,7 @@ function CustomNavItem(props) {
 function Navigation(props) {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
-
+  const navigationItems = useLoaderData();
   return (
     <div>
       <Navbar>
@@ -40,10 +34,10 @@ function Navigation(props) {
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="me-auto" navbar>
-            {props.navigationItems.map((navItem) => (
+            {navigationItems.map((navItem) => (
               <CustomNavItem
                 navHeading={navItem.componentName}
-                handleClick={props.handleClick}
+                path={navItem.path}
               />
             ))}
             <UncontrolledDropdown nav inNavbar>

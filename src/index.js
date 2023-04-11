@@ -1,33 +1,65 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Root, { loader, rootAction } from "./routes/root";
-import ErrorPage from "./routes/ErrorRoute";
-import Contact, { contactLoader } from "./routes/Contact";
-import EditContact from "./routes/EditContact";
+import Navigation from "./components/Navigator";
+import Todos from "./components/Todos";
+import Dictionary, { wordLoader } from "./components/dictionary";
+import Form from "./components/Form";
+import List from "./components/OptimisedList";
+
+// const router = createBrowserRouter([
+//   {
+//     path: "/",
+//     element: <Root />,
+//     errorElement: <ErrorPage />,
+//     loader,
+//     action: rootAction,
+//     children: [
+//       {
+//         path: "contacts/:id",
+//         element: <Contact />,
+//         loader: contactLoader,
+//       },
+//       {
+//         path: "contacts/:id/edit",
+//         element: <EditContact />,
+//         loader: contactLoader,
+//       },
+//     ],
+//   },
+// ]);
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root />,
-    errorElement: <ErrorPage />,
-    loader,
-    action: rootAction,
-    children: [
-      {
-        path: "contacts/:id",
-        element: <Contact />,
-        loader: contactLoader,
-      },
-      {
-        path: "contacts/:id/edit",
-        element: <EditContact />,
-        loader: contactLoader,
-      },
-    ],
+    element: <Navigation />,
+    loader: () => {
+      return [
+        { componentName: "Todos", path: "/todos" },
+        { componentName: "Dictionary", path: "/dictionary" },
+        { componentName: "Form", path: "/form" },
+        { componentName: "List", path: "/list" },
+      ];
+    },
+  },
+  {
+    path: "/todos",
+    element: <Todos />,
+  },
+  {
+    path: "/dictionary/:word",
+    element: <Dictionary />,
+    loader: wordLoader,
+  },
+  {
+    path: "/form",
+    element: <Form />,
+  },
+  {
+    path: "/list",
+    element: <List />,
   },
 ]);
 
