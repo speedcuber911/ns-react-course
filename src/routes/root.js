@@ -3,7 +3,7 @@ import { getAllContacts } from "../contactInfo";
 
 const waitFor2Seconds = () =>
   new Promise((resolve) => {
-    setTimeout(() => resolve(), 200);
+    setTimeout(() => resolve(), 2000);
   });
 
 export function rootAction() {
@@ -18,12 +18,13 @@ export function rootAction() {
 }
 
 export async function loader() {
- return getAllContacts();
+  await waitFor2Seconds();
+  return getAllContacts();
 }
 
 export default function Root() {
   const contacts = useLoaderData();
-  console.log({ contacts });
+  console.log("Contacts inside root component", { contacts });
   return (
     <>
       <div id="sidebar">

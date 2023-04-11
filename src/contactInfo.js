@@ -16,8 +16,7 @@ const contactBook = [
   },
 ];
 
-export function getContactFromId(contactId) {
-  console.log({ contactId });
+export function getContactFromId(contactId) {  
   return contactBook.find(({ id }) => contactId == id);
 }
 

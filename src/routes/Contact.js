@@ -16,7 +16,6 @@ export default function Contact() {
   };
 
   const contactInfo = useLoaderData();
-  console.log(contactInfo);
   return (
     <div id="contact">
       <div>
