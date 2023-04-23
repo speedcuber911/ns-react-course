@@ -8,28 +8,38 @@ import Todos from "./components/Todos";
 import Dictionary, { wordLoader } from "./components/dictionary";
 import Form from "./components/Form";
 import List from "./components/OptimisedList";
+import { Provider } from "react-redux";
 
-// const router = createBrowserRouter([
-//   {
-//     path: "/",
-//     element: <Root />,
-//     errorElement: <ErrorPage />,
-//     loader,
-//     action: rootAction,
-//     children: [
-//       {
-//         path: "contacts/:id",
-//         element: <Contact />,
-//         loader: contactLoader,
-//       },
-//       {
-//         path: "contacts/:id/edit",
-//         element: <EditContact />,
-//         loader: contactLoader,
-//       },
-//     ],
-//   },
-// ]);
+import { createStore } from "redux";
+
+
+const reducer = (state, action) => {
+  console.log("Reducer called", action, state);
+  if(action.type === 'INCREMENT')  
+    return { ...state, initialValue: state.initialValue+1 }
+  return state;
+}
+
+const initialState = {
+  initialValue: 0,
+  users: {},
+  admins: {}
+};
+
+const store = createStore(reducer, initialState)
+
+store.subscribe(() => {
+  console.log("Changes to state", store.getState())  
+})
+
+
+setInterval(() => {  
+  store.dispatch({
+    type: 'INCREMENT'
+  })
+}, 1000)
+
+
 
 const router = createBrowserRouter([
   {
@@ -64,15 +74,17 @@ const router = createBrowserRouter([
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router}>
+    {/* <RouterProvider router={router}> */}
+    <Provider store={store}>
       <App />
-    </RouterProvider>
+    </Provider>
+    {/* </RouterProvider> */}
   </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+
 reportWebVitals();
+
